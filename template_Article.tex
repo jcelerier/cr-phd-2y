@@ -1,0 +1,186 @@
+\documentclass[french,a4paper]{book}
+\usepackage{fontspec}
+
+%opening
+\title{Compte-rendu à t=2.0y}
+\author{Jean-Michaël Celerier}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\chapter{Introduction}
+Ce document survole les travaux qui ont été réalisés jusqu'à présent 
+lors de la thèse, étudie les pistes qui sont ouvertes et les possibilités 
+pour la dernière année.
+
+\section{Mise en relation avec le sujet}
+Calques audio interactifs : théorie, mise en oeuvre et usages.
+
+\section{Articulation et analyse générale}
+\chapter{Réalisations}
+
+\section{Développements théoriques, publications}
+\subsection{États de l'art}
+
+\subsection{Modèle théorique}
+\subsubsection{TENOR2015: OSSIA}
+\subsubsection{IUI2015 (refusé)}
+\subsubsection{JNMR: Vérification}
+\subsubsection{JIM2016: Interface}
+\subsubsection{ICMC2016: Programmation structurée}
+
+\subsection{Espace}
+\subsubsection{JIM2016: Démo}
+% TODO la mettre sur scholar
+\subsubsection{JIM2016: Espace}
+-> Conclusion : CAS peu adéquat, dur d'avoir de bonnes performances à un tick rate quelconque.
+Alternatives : se restreindre aux cas linéaires ? 
+GPU ? Mais latence.
+
+
+\subsubsection{Compte-rendu espace}
+
+\subsection{Audio}
+\subsubsection{SMC2016: i-score et LibAudioStream}
+
+\subsection{Répartition}
+\subsubsection{Rapport de stage}
+
+\section{Conférences, présentations, workshops}
+\subsection{Cycles SCRIME 2015}
+\subsection{Cycles SCRIME 2016}
+\subsection{GDR ESARS}gitter.im
+\subsection{DESINC2016}
+\subsection{Forum IRCAM 2015}
+\subsection{Workshop improvisation}
+
+\section{Développements logiciels}
+
+\subsection{Génie logiciel et généralités}
+\subsubsection{Performances}
+Question des performances ? Comment mettre en valeur ? 
+Un accent très fort est mis dessus.
+
+\subsubsection{Tests}
+Idem pour tests.
+Couverture de code : 70 \% pour libossia, 50 \% pour i-score, 0 \% pour extensions i-score
+
+\subsection{i-score}
+\subsubsection{Architecture}
+\subsubsection{Problèmes actuels}
+\subsubsection{Portabilité}
+Après avoir enlevé Jamoma, exécution sur Android et iOS.
+    
+\subsection{Extensions à i-score}
+\subsubsection{Édition répartie}
+\subsubsection{Audio}
+\subsubsection{Automation 3D}
+\subsubsection{PureData}
+\subsubsection{Espace}
+\subsubsection{Image}
+\subsubsection{Vidéo}
+\subsubsection{Controle à distance}
+\subsubsection{Analyse statique}
+\subsubsection{Segments}
+\subsubsection{Extension "Preset"}
+
+\subsection{libossia}
+\subsubsection{Architecture}
+\subsubsection{Problèmes actuels}
+- temps de compilation
+\subsubsection{Portages}
+\paragraph{C}
+\paragraph{Csharp et Unity}
+\paragraph{Qt}
+\paragraph{Java}
+\paragraph{Javascript}
+\subsection{OSCQuery}
+\subsection{coppa}
+
+\subsection{Études et développements mineurs}
+\subsubsection{External RealSense}
+\subsubsection{Outils pour graphe de calcul}
+\paragraph{DisPATCH}
+\paragraph{RaftLib}
+
+\subsubsection{Contribution à d'autres projets open-source}
+\paragraph{LibAudioStream}
+\paragraph{FAUST}
+\paragraph{Jamoma}
+\paragraph{Contributions mineures}
+\begin{itemize}
+\item Placeholder/Nodeeditor
+\item verdigris
+\item fmt
+\item Qt-color-widgets
+\item jni.hpp
+\item quazip
+\item QRecentFilesMenu
+\item ModernMIDI
+\item libsamplerate
+\item ofxMSAPhysics
+\item Cotire
+\end{itemize}
+
+\section{Projets liés}
+
+\subsection{Audio}
+
+\subsubsection{Stage Magali Chauvat}
+\paragraph{Objectifs}
+
+\subsection{Robots}
+\subsubsection{Stage Nicolas 2015}
+\subsubsection{Stage Kinda Al Chahid 2015}
+
+\subsubsection{Stage Paul Breton 2016}
+\subsubsection{Stage Maëva 2016}
+
+\subsubsection{Projet TM - Robot 2015 - 2016}
+\paragraph{Objectifs}
+\paragraph{Groupe TM}
+\paragraph{Groupe Robots}
+
+\subsubsection{Projet TM - Robot 2016 - 2017}
+\paragraph{Objectifs}
+\paragraph{Groupe TM}
+\paragraph{Groupe Robots}
+
+\subsubsection{PFA2016 - 2017}
+\paragraph{Objectifs}
+
+\section{Cours et TDs donnés}
+\subsection{TIM}
+\subsection{TAP}
+
+\chapter{Objectifs à venir}
+\section{Système réparti}
+\subsection{Exécution répartie}
+\subsection{Répartition des protocoles}
+
+\section{Audio}
+\subsection{Article dans CMJ ?}
+Pour que ce soit convainquant : offrir en plus la possibilité 
+de réutiliser les flux passés. Et bien tout modéliser.
+
+\subsection{Signatures temporelles}
+\subsection{Support audio étendu}
+\subsubsection{VST / VSTi}
+\subsubsection{LV2}
+Format de plug-ins qui permet l'analyse en temps réel de données.
+
+\section{Embedding de i-score}
+\subsection{DLL dans d'autres moteurs d'exécution}
+\subsection{Scénarios compilés}
+\subsection{Web}
+\subsection{IncludeOS pour devices?}
+
+\section{Unification temps - espace}
+\section{Modèle par graphe de noeuds pour calcul par tranches}
+\section{Objectifs personnels}
+\chapter{Conclusion}
+
+\end{document}
