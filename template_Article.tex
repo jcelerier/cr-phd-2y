@@ -22,16 +22,33 @@ Calques audio interactifs : théorie, mise en oeuvre et usages.
 \section{Articulation et analyse générale}
 \chapter{Réalisations}
 
+\section{Étude de cas}
+\subsection{Sonopluie}
+\subsection{Tableaux sonores}
+Modèle pyramidal : 
+- ambiance globale
+- zones
+- éléments individuels
+
+\subsubsection{Bosch}
+\subsubsection{Vernet}
+\subsection{Jardin connecté}
+
 \section{Développements théoriques, publications}
 \subsection{États de l'art}
-
+- Comparaison avec ce qui existe déjà
 \subsection{Modèle théorique}
 \subsubsection{TENOR2015: OSSIA}
 \subsubsection{IUI2015 (refusé)}
 \subsubsection{JNMR: Vérification}
 \subsubsection{JIM2016: Interface}
 \subsubsection{ICMC2016: Programmation structurée}
+Démo : inspiré Klavierstucke XI.
 
+i-score qui communique par WebSockets avec un serveur Node.JS
+
+Des gens se connectent par téléphone au serveur et peuvent influer sur 
+l'exécution du scénario : prochaine partie à jouer, et vitesse moyenne de lecture.
 \subsection{Espace}
 \subsubsection{Compte-rendu espace}
 
@@ -45,6 +62,7 @@ GPU ? Mais latence.
 
 \subsection{Audio}
 \subsubsection{SMC2016: i-score et LibAudioStream}
+Démo : un peu toutes les fonctionnalités
 
 \subsection{Répartition}
 \subsubsection{Rapport de stage}
@@ -133,6 +151,7 @@ Après avoir enlevé Jamoma, exécution sur Android et iOS.
 \subsubsection{Stage Magali Chauvat}
 \paragraph{Objectifs}
 
+- Il faut encore faire la brique d'intégration dans i-score
 \subsection{Robots}
 \subsubsection{Stage Nicolas 2015}
 \subsubsection{Stage Kinda Al Chahid 2015}
@@ -167,16 +186,53 @@ Après avoir enlevé Jamoma, exécution sur Android et iOS.
 Pour que ce soit convainquant : offrir en plus la possibilité 
 de réutiliser les flux passés. Et bien tout modéliser.
 
+- Utiliser la modélisation de la LibAudioStream (Flux) ?
+- Utiliser la modélisation de OSSIA (Petri) ?
+
 \subsection{Signatures temporelles}
 \subsection{Support audio étendu}
+- Gestion des pistes (entrées / sorties virtuelles comme dans un vrai séquenceur)
+- Intégration travail TrackListModel de Magali
+- Spatialisation / autre chose que stéréo
+-> pistes de sortie 1, 2, 3, N canaux 
+
+\subsection{Question des queues de reverb}
+Possibilité : 
+- Au début, lire tous les streams à l'infini dès qu'ils commencent.
+- Question des boucles ? que doit-il se passer ? 
+Dans un DAW normal on boucle la lecture de contenu (fichiers audio, notes midi), mais les effets 
+sont hors de la boucle.
+
+Ici les deux choses sont possibles, c'est à l'auteur de choisir 
+(en mettant les effets dans la boucle ou hors de la boucle).
+
+- Compensation de délai : certains effets (compresseur, limiteur, certaines réverbs) impliquent 
+un délai dans le traitement du signal.
+La plpuart des DAW compensent ce délai au prix d'une latence d'entrée plus élevée : les autres 
+pistes sont décalées de manière à tenir compte du délai des plug-ins.
+Ableton Live offre le choix : compenser le délai ou avoir une latence d'entrée plus faible.
+Si le délai n'est pas prix en compte, deux pistes qui étaient synchronisées à la base ne le seront plus 
+après application de l'effet, ce qui peut poser problème pour des sections rythmiques par exemple.
+
+Certains types d'effets préviennent à l'avance du décalage imposé, tandis que d'autres non.
+Par exemple:
+- Les effets VST supportent un délai statique (fixé au chargement du plug-in)
+- Les effets Reaper, Pro Tools supportent un délai dynamique.
+- Ce doit être fait manuellement par l'auteur pour FaUST.
+
+
 \subsubsection{VST / VSTi}
 \subsubsection{LV2}
 Format de plug-ins qui permet l'analyse en temps réel de données.
 
 \section{Embedding de i-score}
 \subsection{DLL dans d'autres moteurs d'exécution}
+\subsubsection{Max}
+\subsubsection{VST}
+\subsubsection{Unity}
 \subsection{Scénarios compilés}
 \subsection{Web}
+
 \subsection{IncludeOS pour devices?}
 
 \section{Unification temps - espace}
@@ -189,8 +245,106 @@ Ex :
 - si on considère qu'une contrainte temporelle est sur toutes les dimensions à la fois (on fait "progresser" l'espace temps et on arrive dans des espaces différents selon les outcome du scénario i-score).
 - si on considère non pas l'avancement dans un scénario comme quelque chose de global, mais quelque chose de lié à un acteur.
 => on a dès lors besoin de multiples curseurs de temps.
+
+Alternative "intégration dans unity" : on applique à un objet existant dans Unity, un scénario i-score.
+Ce scénario devrait pouvoir interagir avec le reste des paramètres ? On voit juste un aspect d'un scénario global ?
+
 \section{Modèle par graphe de noeuds pour calcul par tranches}
-\section{Objectifs personnels}
+- On veut à chaque instant (tick) avoir un graphe de calcul différent, en fonction des processus qui sont exécutés.
+-> faire petit schéma.
+
+
+Il faut : 
+* Changer le moteur d'exécution afin qu'il fonctionne réellement sous la forme d'un graphe
+-> Changer les processsus / le type "ossia::state" pour que les noeuds effectuent des calculs (lazyness).
+-> Changer les processus pour qu'ils spécifient les adresses qu'ils utilisent en entrée - sortie.
+Par exemple pour le processus Javascript cela permettrait d'activer le listening sur les adresses qu'il utilise en entrée, 
+plutôt que de faire un "pull" dessus qui peut être plus long.
+
+\section{Édition à l'exécution}
+Actuellement, les structures de données utilisée à l'exécution sont recréées à chaque fois que le bouton "exécuter" est pressé.
+C'est du au fait que les structures de données de l'API OSSIA ne sont pas thread-safe : il est actuellement dangereux de changer par exemple 
+la durée d'une contrainte pendant qu'elle s'exécute car ces deux choses se font dans des threads distincts.
+
+La première possibilité est de rajouter des mutex aux endroits impactés par l'édition 
+(c'est à dire à peu près partout).
+
+La seconde (ayant ma préférence) est d'utiliser une file de commandes pour l'édition : 
+des commandes d'édition sont envoyées et mise dans une file sans verouillage (lock-free queue).
+
+Le moteur d'exécution peut appliquer les commandes d'édition dans le cadre de sa boucle d'exécution, 
+une fois que le tick d'exécution courant est terminé.
+Cela permet de garder les performances du code sans mutex, tout en prévenant les crashs.
+
+Par la suite, il est nécessaire de changer la manière dont l'API est appelée depuis i-score
+pour qu'elle garde les structures en mémoire plutôt que de les recréer à chaque exécution, 
+et qu'elle réagisse aux changements dans l'interface graphique.
+
+Une perspective intéressante serait d'offrir par la suite une API d'édition par le réseau (OSC) 
+ou via Javascript, pour pouvoir écrire des partitions auto-génératives.
+
+\section{Polyphonie}
+- Faire une liste des évènements communs à tous les types de polyphonie
+\subsection{Polyphonie dans les scénarios}
+\subsection{Polyphonie dans l'espace}
+- interaction entre deux agents / utilisateurs
+
+\subsection{Polyphonie dans le son}
+- plusieurs sons
+- plusieurs auditeurs
+\subsection{Spatialisation du son}
+- plusieurs enceintes
+En général deux méthodes :
+- Spatialisation par piste
+- Spatialisation par objet
+- Intégration temps / espace
+\section{Scripting de l'interface en Javascript}
+
+\section{Interaction}
+- Extraction des informations.
+Informations de quoi ? Les dataspace le font déjà dans un sens.
+
+\section{Langage}
+Modéliser les développements réalisés via un langage.
+
+Approche escomptée : langage réactif ou les variables sont des processus.
+
+Comment le langage peut-il rendre compte de l'aspect "plug-in" du logiciel ? 
+
+Très dur de faire un langage extensible au niveau de la syntaxe / sémantique ...
+
+Approche DSL dans un langage existant ?
+
+Le langage doit-il produire un scénario i-score ou bien directement s'exécuter ? 
+
+Compiler en code C++ qui correspond ? 
+
+\section{Problématiques d'UI / de développement}
+- Afficher un processus sous plusieurs aspects (e.g. pour une courbe 3D, les automations x, y, z ainsi que l'allure générale que ça donne).
+- Alias dans arbre (par exemple trois noeuds addrR, addrG, addrB => une seule addresse addr)
+- Problématique de l'édition réciproque.
+\subsection{Dataspace}
+- Gérer les dataspace qui wrap (0 -> 360)
+\subsection{Plug-in marketplace}
+\subsection{Bibliothèque}
+
+\section{Lien entre différents aspects}
+Comment spatialiser un son efficacement en combinant les processus espace, etc.
+
+Comment tout exécuter dans navigateur : il faut du webaudio pour la libaudiostream.
+
+\subsection{Objets sonores interactifs}
+-Objets sonores interactifs "self-contained"
+-> "Chien qui aboie" 
+-> Tonneau qui tombe; une fois qu'il est tombé, on ne peut plus interagir avec (jusqu'à quand?).
+
+-> On doit pouvoir les échanger, les stocker...
+-> Des fichiers sons peuvent être associés.
+-> Question de propriété intellectuelle ? 
+Empêcher l'édition et ne laisser que certains paramètres accessibles.
+%\section{Objectifs personnels}
 \chapter{Conclusion}
+\section{Emploi du temps}
+\section{Discussion}
 
 \end{document}
