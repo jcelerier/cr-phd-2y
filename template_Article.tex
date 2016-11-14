@@ -1,7 +1,20 @@
-\documentclass[french,a4paper]{book}
+\documentclass[french,a4paper,openany,12pt]{book}
 \usepackage{fontspec}
+\setmainfont{Cardo}
+\setmonofont{Fira Code}
+\usepackage{microtype}
+\usepackage{amsmath}
+\usepackage[french]{babel}
+\usepackage[margin=2cm]{geometry}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{titlesec}
 
-%opening
+\lstset{basicstyle=\ttfamily}
+\titlespacing{\section}{16pt}{8pt}{0pt}
+\titlespacing{\subsection}{16pt}{8pt}{0pt}
+\titlespacing{\subsubsection}{8pt}{4pt}{0pt}
+
 \title{Compte-rendu à t=2.0y}
 \author{Jean-Michaël Celerier}
 
@@ -17,94 +30,261 @@ lors de la thèse, étudie les pistes qui sont ouvertes et les possibilités
 pour la dernière année.
 
 \section{Mise en relation avec le sujet}
-Calques audio interactifs : théorie, mise en oeuvre et usages.
+Calques audio interactifs : \textbf{théorie}, mise en œuvre et usages.
 
 \section{Articulation et analyse générale}
 \chapter{Réalisations}
 
 \section{Étude de cas}
 \subsection{Sonopluie}
+Ce cas est constitué de zones pré-écrites qui correspondent à des 
+étapes d'une randonnée géo-localisée.
+
+Le signal d'entrée est un positionnement GPS.
+
+Les ambiances sonores évoluent selon les zones.
+Il doit y avoir une forme d'interaction multi-pointeurs : 
+par exemple, quand deux personnes sont dans la même zone, la scénarisation 
+locale du son peut évoluer.
+
+Pour l'écriture, il est utile d'avoir accès à une source de données cartographiques, 
+comme Google Maps, MapQuest, etc.
+
 \subsection{Tableaux sonores}
-Modèle pyramidal : 
-- ambiance globale
-- zones
-- éléments individuels
+Dans ce cas, on travaille sur des tableaux que l'on désire sonifier, d'une manière 
+artistique et avec une notion de scénarisation.
+
+On interagit à l'aide d'une surface tactile ou d'un capteur de mouvements.
+
+La scénarisation est définie de manière hiérarchique :
+\begin{itemize}
+    \item Une ambiance globale peut recouvrir tout le tableau.
+    \item Comme dans le cas Sonopluie, des zones plus spécifiques peuvent porter une ambiance additionnelle.
+    \item Des éléments individuels (objets) peuvent avoir un comportement qui leur est propre.
+\end{itemize} 
 
 \subsubsection{Bosch}
-\subsubsection{Vernet}
+Ce triptyque riche en détails permet d'essayer différentes techniques.
+\begin{itemize}
+\item Spatialisation d'éléments statiques : bruits d'oiseaux, etc.
+\item Spatialisation d'objets dynamiques : cercle du panneau central.
+\item Instruments de musique : répartis dans le panneau de droite.
+\item Historique avec personnages : foule en bas du panneau central.
+\end{itemize}
+
+\subsubsection{Tableaux de Vernet}
+- Profondeur
+- Refaire en vrai ? 
+- Le tableau ne correspond pas à la réalité
+
 \subsection{Jardin connecté}
+
+\subsection{Pièces électro-acoustiques spatialisées}
+
+\subsection{Grapholine}
 
 \section{Développements théoriques, publications}
 \subsection{États de l'art}
 - Comparaison avec ce qui existe déjà
+
 \subsection{Modèle théorique}
 \subsubsection{TENOR2015: OSSIA}
+Présente une spécification en réseaux de Petri des travaux réalisés 
+lors du projet OSSIA.
+
 \subsubsection{IUI2015 (refusé)}
 \subsubsection{JNMR: Vérification}
+Traduction du modèle graphique en automates temporisés tels que définis par J. Arias.
+
+On essaye par la suite de permettre aux compositeurs de vérifier des propriétés 
+sur leurs partitions interactives, telles que "deux séquences ne sont jamais exécutées en même temps".
+
 \subsubsection{JIM2016: Interface}
+Étude d'un scénario complexe (Cas du coureur, au futuroscope).
+
 \subsubsection{ICMC2016: Programmation structurée}
-Démo : inspiré Klavierstucke XI.
+"Design patterns" et outils de programmation standard à l'aide des objets présentés précédemment.
+
+Démo : inspiré de Klavierstücke XI.
 
 i-score qui communique par WebSockets avec un serveur Node.JS
 
 Des gens se connectent par téléphone au serveur et peuvent influer sur 
 l'exécution du scénario : prochaine partie à jouer, et vitesse moyenne de lecture.
+
 \subsection{Espace}
 \subsubsection{Compte-rendu espace}
 
-\subsubsection{JIM2016: Démo}
-% TODO la mettre sur scholar
 \subsubsection{JIM2016: Espace}
+Analyse de différentes méthodes pour représenter des objets spatiaux dans le cadre de i-score.
 -> Conclusion : CAS peu adéquat, dur d'avoir de bonnes performances à un tick rate quelconque.
 Alternatives : se restreindre aux cas linéaires ? 
 GPU ? Mais latence.
 
+\subsubsection{JIM2016: Démo}
+% TODO la mettre sur scholar
+Présentation d'une sonification interactive du tableau de Jérôme Bosch, \textit{Le Jardin des Délices}.
 
 \subsection{Audio}
 \subsubsection{SMC2016: i-score et LibAudioStream}
-Démo : un peu toutes les fonctionnalités
+Intégration de la LibAudioStream avec i-score : traduction 
+de scénarios i-score en expressions LibAudioStream et synchronisation
+des deux moteurs d'exécution; outils graphiques pour le son.
+
+Démo : toutes les fonctionnalités.
 
 \subsection{Répartition}
-\subsubsection{Rapport de stage}
+\subsubsection{Stage master}
+Proposition : méthode de répartition en introduisant de nouveaux réseaux de Petri.
+
+\subsubsection{Étude subséquente : se baser sur modèle OSSIA}
+On essaye d'implémenter le même formalisme, en utilisant non plus sur les réseaux de Petri, 
+mais sur les outils dont on dispose dans le modèle OSSIA : TimeNode, Event, Trigger.
 
 \section{Conférences, présentations, workshops}
-\subsection{Cycles SCRIME 2015}
-\subsection{Forum IRCAM 2015}
-\subsection{FOSDEM 2016}
-\subsection{Cycles SCRIME 2016}
-\subsection{GDR ESARS}
-\subsection{DESINC2016}
-\subsection{Workshop improvisation}
-
+\begin{itemize}
+    \item \textbf{Cycles SCRIME 2014}
+    Présentation du travail de stage sur la répartition.
+    \item \textbf{Cycles SCRIME 2015}
+    Présentation d'un état de l'art sur l'espace.
+    \item \textbf{Forum IRCAM 2015}
+    Présentation générale du logiciel.
+    \item \textbf{FOSDEM 2016}
+    Présentation générale du logiciel à l'aide d'un example réalisé par Théo en Processing.
+    \item \textbf{GDR ESARS}
+    Présentation générale du logiciel.
+    \item \textbf{Cycles SCRIME 2016}
+    Présentation du travail sur l'audio.
+    \item \textbf{Workshop improvisation LaBRI}
+    Présentation du travail sur l'audio.
+    \item \textbf{Workshop DESINC2016}
+    Workshop d'initiation à i-score avec des participants d'horizons variés.
+\end{itemize}
 \section{Développements logiciels}
 
 \subsection{Génie logiciel et généralités}
 \subsubsection{Performances}
-Question des performances ? Comment mettre en valeur ? 
-Un accent très fort est mis dessus.
+Comment mettre en valeur l'aspect "performances" du logiciel ? 
+Un accent très fort est mis dessus lors du développement.
+
+Par exemple : 
+\begin{itemize}
+    \item Gestion du cache et de la mémoire via une minimisation des allocations dynamiques.
+    \item Métaprogrammation et utilisation de techniques permettant de déporter le plus 
+    de code possible à la compilation plutôt qu'à l'exécution pour améliorer les optimisations
+    possibles par le compilateur.
+    \begin{itemize}
+        \item Dans libossia, gestion des types "tableaux" courants (\lstinline|Vec2f|, \lstinline|Vec3f|, \lstinline|Vec4f|) sur la pile plutôt que sur le tas. 
+        C'est par opposition à Jamoma ou le type \lstinline|TTValue| est sur le tas et nécessite une allocation dynamique quoi qu'il arrive.
+        \item Utilisation de ces types pour les dataspaces.
+        \item Dans i-score, instantiation des composants du logiciel.
+    \end{itemize}
+    \item Structures de données optimisées au cas par cas.
+    \item Caches variés pour améliorer les performances.
+\end{itemize}
 
 \subsubsection{Tests}
-Idem pour tests.
-Couverture de code : 70 \% pour libossia, 50 \% pour i-score, 0 \% pour extensions i-score
+Couverture de code : 
+
+\begin{itemize}
+    \item 70 \% pour libossia via des tests unitaires et d'intégration.
+    \item 50 \% pour i-score via des tests d'intégration.
+    \item 0 \% pour les extensions à i-score (audio, espace, etc.).
+\end{itemize}
+
+Idéalement il devrait y avoir au moins 90\% de couverture.
+
+Mais plus de tests implique moins de R\&D.
 
 \subsection{i-score}
 \subsubsection{Architecture}
 \subsubsection{Problèmes actuels}
 \subsubsection{Portabilité}
-Après avoir enlevé Jamoma, exécution sur Android et iOS.
+Après avoir enlevé la dépendance à Jamoma, on obtient l'exécution sur Android et iOS.
+
+Le logiciel marche donc sur toute les plate-formes courantes.
     
 \subsection{Extensions à i-score}
 \subsubsection{Édition répartie}
+Lien: \url{https://github.com/OSSIA/iscore-addon-network}~\\
+Cette extension permet à plusieurs instances d'i-score de partager le même scénario au moment de l'édition.
+
+Ce dépôt contient aussi les bases des travaux de répartition de l'exécution.
+
 \subsubsection{Audio}
+Lien: \url{https://github.com/OSSIA/iscore-addon-audio}~\\
+
+Contient: 
+\begin{itemize}
+    \item L'intégration avec la LibAudioStream.
+    \item Les flux développés pour la bibliothèque (Send et Return).
+    \item Les processus i-score correspondants.
+    \item Une intégration avec le format de plug-in LV2.
+\end{itemize} 
+
+Utilise Faust et optionnellement la bibliothèque lilv pour LV2.
+
 \subsubsection{Automation 3D}
-\subsubsection{PureData}
+Lien: \url{https://github.com/OSSIA/iscore-addon-autom3d}~\\
+Contient un processus qui permet de décrire une automation sur un 
+paramètre à trois dimensions via une spline cubique, et un widget 
+permettant l'édition de cette automation en 3D.
+
+Utilise la bibliothèque VTK.
+
 \subsubsection{Espace}
+Lien: \url{https://github.com/OSSIA/iscore-addon-space}~\\
+Contient le processus Espace qui permet de définir des zones via 
+des équations cartésiennes et des interactions entre ces zones.
+
+Utilise la bibliothèque VTK.
+
 \subsubsection{Image}
+Lien: \url{https://github.com/OSSIA/iscore-addon-image}~\\
+
+Offre un processus purement utilitaire, qui permet d'afficher 
+une image dans un scénario i-score.
+
 \subsubsection{Vidéo}
+Lien: \url{https://github.com/OSSIA/iscore-addon-video}~\\
+
+Offre un processus qui lit une vidéo de manière intégrée à la 
+timeline i-score.
+
 \subsubsection{Controle à distance}
+Lien: \url{https://github.com/OSSIA/iscore-addon-remotecontrol}~\\
+
+Expose une partie de l'exécution i-score via un protocole simple sur WebSockets, 
+qui permet notamment de déclencher les points d'interaction à la volée.
+
+Contient aussi une application simple pour tablette ou téléphone qui permet d'interagir
+avec ce protocole pour permettre le déclenchement au moment ou les points d'interaction 
+deviennent accessibles.
+
 \subsubsection{Analyse statique}
-\subsubsection{Segments}
+Lien: \url{https://github.com/OSSIA/iscore-addon-staticanalysis}~\\
+Contient le code utilisé pour : 
+\begin{itemize}
+    \item La traduction en automates temporisés de l'article JNMR.
+    \item Un algorithme de génération aléatoire de scénario i-score.
+    \item Des outils de mesure de métriques de code appliqués aux scénarios i-score, notamment les métriques de complexité de Halstead.    
+\end{itemize}
+
 \subsubsection{Extension "Preset"}
+Lien: \url{https://github.com/OSSIA/iscore-addon-presetstate}~\\
+Prototype permettant de charger un état via un fichier de configuration.
+
+\subsubsection{PureData}
+Lien: \url{https://github.com/jcelerier/iscore-addon-pd}~\\
+Prototype permettant d'utiliser des patches PureData dans un scénario i-score. 
+Pour l'instant ne gère que des patchs avec une entrée et une sortie fixe.
+Utilise libpd.
+
+\subsubsection{Segments}
+Lien: \url{https://github.com/OSSIA/iscore-addon-segments}~\\
+Doit servir de base pour la brique d'intégration entre i-score et le projet Segments.
+Pour l'instant contient juste un exemple d'utilisation de quelques interfaces d'i-score.
+
 
 \subsection{libossia}
 \subsubsection{Architecture}
@@ -186,8 +366,10 @@ Après avoir enlevé Jamoma, exécution sur Android et iOS.
 Pour que ce soit convainquant : offrir en plus la possibilité 
 de réutiliser les flux passés. Et bien tout modéliser.
 
-- Utiliser la modélisation de la LibAudioStream (Flux) ?
-- Utiliser la modélisation de OSSIA (Petri) ?
+\begin{itemize}
+\item Utiliser la modélisation de la LibAudioStream (Flux) ?
+\item Utiliser la modélisation de OSSIA (Petri) ?
+\end{itemize}
 
 \subsection{Signatures temporelles}
 \subsection{Support audio étendu}
@@ -198,8 +380,10 @@ de réutiliser les flux passés. Et bien tout modéliser.
 
 \subsection{Question des queues de reverb}
 Possibilité : 
-- Au début, lire tous les streams à l'infini dès qu'ils commencent.
-- Question des boucles ? que doit-il se passer ? 
+\begin{itemize}
+\item Au début, lire tous les streams à l'infini dès qu'ils commencent.
+\item Question des boucles ? que doit-il se passer ? 
+\end{itemize}
 Dans un DAW normal on boucle la lecture de contenu (fichiers audio, notes midi), mais les effets 
 sont hors de la boucle.
 
@@ -239,27 +423,31 @@ Format de plug-ins qui permet l'analyse en temps réel de données.
 - Lister les cas possibles : comprendre 
 ce que "appliquer les structures de i-score dans l'espace" veut dire.
 Ex : 
-- si on considère qu'une contrainte temporelle est toujours sur une seule dimension, de temps ?
-- si on considère qu'une contrainte temporelle est toujours sur une seule dimension, d'espace ? 
-- si on considère qu'une contrainte temporelle est sur plusieurs dimensions d'espace ? 
-- si on considère qu'une contrainte temporelle est sur toutes les dimensions à la fois (on fait "progresser" l'espace temps et on arrive dans des espaces différents selon les outcome du scénario i-score).
-- si on considère non pas l'avancement dans un scénario comme quelque chose de global, mais quelque chose de lié à un acteur.
-=> on a dès lors besoin de multiples curseurs de temps.
+\begin{itemize}
+\item Si on considère qu'une contrainte temporelle est toujours sur une seule dimension, de temps ?
+\item Si on considère qu'une contrainte temporelle est toujours sur une seule dimension, d'espace ? 
+\item Si on considère qu'une contrainte temporelle est sur plusieurs dimensions d'espace ? 
+\item Si on considère qu'une contrainte temporelle est sur toutes les dimensions à la fois (on fait "progresser" l'espace temps et on arrive dans des espaces différents selon les outcome du scénario i-score).
+\item Si on considère non pas l'avancement dans un scénario comme quelque chose de global, mais quelque chose de lié à un acteur.
+On a dès lors besoin de multiples curseurs de temps.
+\end{itemize}
 
 Alternative "intégration dans unity" : on applique à un objet existant dans Unity, un scénario i-score.
 Ce scénario devrait pouvoir interagir avec le reste des paramètres ? On voit juste un aspect d'un scénario global ?
 
 \section{Modèle par graphe de noeuds pour calcul par tranches}
-- On veut à chaque instant (tick) avoir un graphe de calcul différent, en fonction des processus qui sont exécutés.
--> faire petit schéma.
+On veut à chaque instant (tick) avoir un graphe de calcul différent, en fonction des processus qui sont exécutés.
 
+%TODO -> faire petit schéma.
 
 Il faut : 
-* Changer le moteur d'exécution afin qu'il fonctionne réellement sous la forme d'un graphe
--> Changer les processsus / le type "ossia::state" pour que les noeuds effectuent des calculs (lazyness).
--> Changer les processus pour qu'ils spécifient les adresses qu'ils utilisent en entrée - sortie.
-Par exemple pour le processus Javascript cela permettrait d'activer le listening sur les adresses qu'il utilise en entrée, 
-plutôt que de faire un "pull" dessus qui peut être plus long.
+\begin{itemize}
+    \item Changer le moteur d'exécution afin qu'il fonctionne réellement sous la forme d'un graphe.
+    \item Changer l'implémentation des processus et le type \lstinline|ossia::state| pour qu'ils renvoient un calcul à effectuer plutôt que le résultat de ce calcul ; c'est une forme d'évaluation paresseuse.
+    \item Changer les processus pour qu'ils spécifient les adresses qu'ils utilisent en entrée - sortie.
+    Par exemple pour le processus Javascript cela permettrait d'activer le listening sur les adresses qu'il utilise en entrée, 
+    plutôt que de faire un "pull" dessus qui peut être plus long.
+\end{itemize}
 
 \section{Édition à l'exécution}
 Actuellement, les structures de données utilisée à l'exécution sont recréées à chaque fois que le bouton "exécuter" est pressé.
