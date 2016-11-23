@@ -474,10 +474,45 @@ ou via Javascript, pour pouvoir écrire des partitions auto-génératives.
 \section{Polyphonie}
 - Faire une liste des évènements communs à tous les types de polyphonie
 \subsection{Polyphonie dans les scénarios}
+On voudrait qu'une boite puisse être exécutée en même temps par plusieurs curseurs.
+\begin{itemize}
+	\item Comment l'écrire ? actuellement il n'y a qu'un curseur de temps. Faut-il introduire des exécutions parallèles sur le même scénario ?
+	\item Peut-on synchroniser ces exécutions parallèles, avec les outils dont on dispose ? 
+	\item Peut-on mettre en parallèle avec le travail sur la répartition : plusieurs scénarios s'exécutent indépendamment ? Problème de l'approche : on fixe à l'avant les utilisateurs ? Ou pas...
+	\item Problématique : "stateful processes". Par exemple un tween. 
+	\item Ce n'est pas utile d'émettre des informations sur les mêmes adresses. Pour la polyphonie il est nécessaire de paramétrer les adresses. Ne peut-on pas le faire avec un script JS par exemple ?
+	\item Y-a-t-il des processus qui pourraient avoir du sens uniquement de manière polyphonique ? 
+	\begin{itemize}
+		\item Automations : il faut que les adresses soient différentes. Si on a n participants, on peut mappers aux adresses [1; n]. e.g. foo.0, foo.1, ... avec le système d'instances ?  Sinon il faut scripter... objet qui déduplique ? mais on se retrouve avec Max.
+		\item Interpolations : il faut que les adresses soient différentes
+		\item Mapping : il faut que les adresses soient différentes
+		\item JS -> avoir un tableau avec tous les curseurs de temps en entrée ? Ou exécuter chaque script de manière indépendante ?
+		\item Scénarios, boucles : récursivité
+		\item Space : multi-pointeurs
+		\item Fichier son : bof.
+		\item Effect : bof.
+		\item "Group" mappings (cf rapport master). Mapping $[1 \rightarrow n]$, $[n \rightarrow 1]$, $[n \rightarrow n]$, $[m \rightarrow n]$
+	\end{itemize}
+\end{itemize}
+Deux cas : 
+
+\begin{itemize}
+\item Cas d'un scénario maître avec plein de petits scénarios esclaves : téléphones ? 
+\item Cas de scénarios entièrement indépendants dans l'exécution : qu'est-ce qu'on y gagne par rapport à lancer plusieurs fois i-score.
+\end{itemize}
+
+Si on s'autorise des curseurs spatiaux.
+Plusieurs scénarios qui s'exécutent.
+
+Possibilité de déclarer un curseur à partir de n'importe quel noeud de l'arbre.
+
 \subsection{Polyphonie dans l'espace}
 - interaction entre deux agents / utilisateurs
 
 \subsection{Polyphonie dans le son}
+Première étape : piste virtuelle.
+
+Buffers d'entrée : sorte de polyphonie ?
 - plusieurs sons
 - plusieurs auditeurs
 \subsection{Spatialisation du son}
